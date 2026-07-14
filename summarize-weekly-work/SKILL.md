@@ -55,4 +55,7 @@ Skip days with no commits entirely.
 - <what was done>
 ```
 
+## Rules
+- The final output should be in Spanish, but keep things in English when referencing code
+
 One `##` section per day. No raw commit hashes. No narrative prose.
