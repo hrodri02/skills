@@ -1,0 +1,44 @@
+{
+  "skill_name": "summarize-weekly-work",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Summarize my work from yesterday.",
+      "expected_output": "A single day section (Monday July 13) with a narrative paragraph synthesizing the InputsInfo panel work: flow monitor integration, permission gating, jstree fixes, hover styling, and routing link fixes.",
+      "files": [],
+      "expectations": [
+        "Output contains a section for Monday July 13 (or 'Monday, July 13')",
+        "Mentions InputsInfo panel by name or concept",
+        "Mentions at least one of: flow monitor, jstree, user permissions, hover, routing link",
+        "Written as a narrative paragraph, not a bullet list of raw commit messages",
+        "Does not include sections for other days (July 10, July 9, etc.)"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Give me a summary of what I worked on last week.",
+      "expected_output": "Sections for Wednesday July 8, Thursday July 9, and Friday July 10, each with a narrative paragraph. Wednesday covers the initial InputsInfo panel addition. Thursday covers sub-panel expansion, routing/loader link fixes, and request consolidation. Friday covers InputsInfo refinements, parent-flow tree styling, routing link fixes, and mass jobs link.",
+      "files": [],
+      "expectations": [
+        "Contains a section for Wednesday July 8 (or Thursday July 9 or Friday July 10) — at least two day sections present",
+        "Does NOT contain a section for Monday July 13 (that's this week, not last week)",
+        "Mentions InputsInfo panel across the week",
+        "At least one section mentions parent flows or routing or loader",
+        "Each day section is a narrative paragraph, not raw commit subjects"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "What did I work on on July 9th?",
+      "expected_output": "A single day section for Thursday July 9 covering: expanding all inputs sub-panels on load, consolidating the flow start-step inputs into a single request, fixing routing/loader link re-builds on return, and applying setState callback for initialLoaderName.",
+      "files": [],
+      "expectations": [
+        "Contains a section for July 9 (Thursday)",
+        "Does NOT contain sections for other dates (July 8, July 10, July 13)",
+        "Mentions sub-panels or expand or inputs panel",
+        "Mentions at least one of: routing, loader, request consolidation, setState",
+        "Written as a narrative paragraph, not raw commit message subjects"
+      ]
+    }
+  ]
+}
