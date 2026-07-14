@@ -1,0 +1,183 @@
+{
+  "metadata": {
+    "skill_name": "write-commit-messages",
+    "skill_path": "/home/dev/.claude/skills/write-commit-messages",
+    "executor_model": "claude-sonnet-4-6",
+    "timestamp": "2026-07-14T18:00:00Z",
+    "evals_run": ["simple-fix", "multi-feature", "refactor-perf"],
+    "runs_per_configuration": 1
+  },
+  "runs": [
+    {
+      "eval_id": 1,
+      "eval_name": "simple-fix",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "time_seconds": 36.5,
+        "tokens": 26686,
+        "tool_calls": 4,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "The commit type is 'fix'", "passed": true, "evidence": "Starts with 'fix(loader-service):'"},
+        {"text": "The subject line is under 72 characters", "passed": true, "evidence": "64 chars"},
+        {"text": "The subject line uses imperative mood", "passed": true, "evidence": "Uses 'guard'"},
+        {"text": "The body or subject explains WHY the null check is needed", "passed": true, "evidence": "Body: 'scheduledTasks.get() returns null when a loader has never been scheduled'"},
+        {"text": "Only one commit message is proposed", "passed": true, "evidence": "Exactly one commit"}
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 1,
+      "eval_name": "simple-fix",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "time_seconds": 37.9,
+        "tokens": 27142,
+        "tool_calls": 4,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "The commit type is 'fix'", "passed": true, "evidence": "Starts with 'fix(loader-service):'"},
+        {"text": "The subject line is under 72 characters", "passed": true, "evidence": "64 chars"},
+        {"text": "The subject line uses imperative mood", "passed": true, "evidence": "Uses 'null-check'"},
+        {"text": "The body or subject explains WHY the null check is needed", "passed": true, "evidence": "Body explains null return from scheduledTasks.get()"},
+        {"text": "Only one commit message is proposed", "passed": true, "evidence": "Exactly one commit"}
+      ],
+      "notes": ["prev_skill also passed 5/5 this run — eval-1 may not strongly discriminate after the rules were added"]
+    },
+    {
+      "eval_id": 2,
+      "eval_name": "multi-feature",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 6,
+        "failed": 0,
+        "total": 6,
+        "time_seconds": 46.3,
+        "tokens": 27980,
+        "tool_calls": 4,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "At least two commit messages are proposed", "passed": true, "evidence": "Two messages"},
+        {"text": "Both messages use type 'feat'", "passed": true, "evidence": "Both 'feat(masros-gui):'"},
+        {"text": "Each subject line is under 72 characters", "passed": true, "evidence": "59 and 59 chars"},
+        {"text": "The loader commit explains deep-linking via URL param", "passed": true, "evidence": "Body mentions deep-linking via urlParam('ymlCode')"},
+        {"text": "The Inputs panel commit explains sub-sections", "passed": true, "evidence": "Names routing, parent flows, loaders, mass jobs"},
+        {"text": "At least one commit has a body paragraph", "passed": true, "evidence": "Both have bodies"}
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 2,
+      "eval_name": "multi-feature",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 6,
+        "failed": 0,
+        "total": 6,
+        "time_seconds": 39.0,
+        "tokens": 27925,
+        "tool_calls": 4,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "At least two commit messages are proposed", "passed": true, "evidence": "Two messages"},
+        {"text": "Both messages use type 'feat'", "passed": true, "evidence": "Both 'feat(masros-gui):'"},
+        {"text": "Each subject line is under 72 characters", "passed": true, "evidence": "58 and 56 chars"},
+        {"text": "The loader commit explains deep-linking via URL param", "passed": true, "evidence": "Mentions urlParam('ymlCode') and pre-selection"},
+        {"text": "The Inputs panel commit explains sub-sections", "passed": true, "evidence": "Names all four sub-section components"},
+        {"text": "At least one commit has a body paragraph", "passed": true, "evidence": "Both have bodies"}
+      ],
+      "notes": ["Still non-discriminating — both pass 100%"]
+    },
+    {
+      "eval_id": 3,
+      "eval_name": "refactor-perf",
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 5,
+        "failed": 0,
+        "total": 5,
+        "time_seconds": 72.1,
+        "tokens": 29284,
+        "tool_calls": 5,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "At least one commit uses type 'refactor' or 'perf'", "passed": true, "evidence": "Uses 'perf' and 'refactor'"},
+        {"text": "The subject line(s) are under 72 characters each", "passed": true, "evidence": "51 and 65 chars — agent used the corrected ✅ example (65 chars)"},
+        {"text": "Subject lines use imperative mood", "passed": true, "evidence": "'tune' and 'extract'"},
+        {"text": "The message(s) explain the motivation", "passed": true, "evidence": "Both bodies explain rationale clearly"},
+        {"text": "No message uses type 'feat'", "passed": true, "evidence": "Uses 'perf' and 'refactor'"}
+      ],
+      "notes": ["Fixing the counter-example resolved the failure — agent now produces 65-char subject instead of 76"]
+    },
+    {
+      "eval_id": 3,
+      "eval_name": "refactor-perf",
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.8,
+        "passed": 4,
+        "failed": 1,
+        "total": 5,
+        "time_seconds": 142.3,
+        "tokens": 33317,
+        "tool_calls": 5,
+        "errors": 0
+      },
+      "expectations": [
+        {"text": "At least one commit uses type 'refactor' or 'perf'", "passed": true, "evidence": "Uses 'perf' and 'refactor'"},
+        {"text": "The subject line(s) are under 72 characters each", "passed": false, "evidence": "First 69 chars ✅. Second 'refactor(ros-common): extract step-log publishing into KafkaStepLogPublisher' = 76 chars ❌ — copied broken ✅ example still in prev_skill snapshot"},
+        {"text": "Subject lines use imperative mood", "passed": true, "evidence": "'tune' and 'extract'"},
+        {"text": "The message(s) explain the motivation", "passed": true, "evidence": "Both bodies explain rationale clearly"},
+        {"text": "No message uses type 'feat'", "passed": true, "evidence": "Uses 'perf' and 'refactor'"}
+      ],
+      "notes": ["Confirms the fix — prev_skill (broken ✅) still fails; with_skill (corrected ✅) passes"]
+    }
+  ],
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {"mean": 1.0, "stddev": 0.0, "min": 1.0, "max": 1.0},
+      "time_seconds": {"mean": 51.6, "stddev": 17.6, "min": 36.5, "max": 72.1},
+      "tokens": {"mean": 27983, "stddev": 1061, "min": 26686, "max": 29284}
+    },
+    "without_skill": {
+      "pass_rate": {"mean": 0.933, "stddev": 0.094, "min": 0.8, "max": 1.0},
+      "time_seconds": {"mean": 73.1, "stddev": 48.4, "min": 37.9, "max": 142.3},
+      "tokens": {"mean": 29461, "stddev": 2778, "min": 27142, "max": 33317}
+    },
+    "delta": {
+      "pass_rate": "+0.067",
+      "time_seconds": "-21.5",
+      "tokens": "-1478"
+    }
+  },
+  "notes": [
+    "NOTE: 'without_skill' = previous skill version (rules present, broken ✅ counter-example at 76 chars). Not a zero-skill baseline.",
+    "with_skill achieves 100% pass rate across all 3 evals — first perfect score in this eval set.",
+    "The counter-example fix was the only change; it resolved the eval-3 failure cleanly (76→65 char subject).",
+    "eval-1 now passes 5/5 in both configurations — the rules + body requirement from example 2 body appear to prompt the model to include a body even for simple fixes.",
+    "eval-2 remains non-discriminating (both 100%). Should be replaced with a harder case in the next iteration.",
+    "with_skill is also faster (-21.5s mean) and cheaper (-1478 tokens) than prev_skill — likely because prev_skill spent more time on eval-3 (142s vs 72s)."
+  ]
+}
